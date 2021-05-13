@@ -38,17 +38,17 @@ function succesCountry(data) {
     return;
   }
 
-  //   landError();
+  landError();
   clearMarkup();
   return;
 }
 refs.inputnRef.addEventListener('input', debounce(onSearch, 500));
 
-// function landError() {
-//   error({
-//     text: 'Too many matches found. Please enter a more specific query!',
-//   });
-// }
+function landError() {
+  error({
+    text: 'Too many matches found. Please enter a more specific query!',
+  });
+}
 
 function clearMarkup() {
   refs.cardList.innerHTML = '';
