@@ -12,13 +12,17 @@
     />
   </head>
   <body>
-    <div class="form-container">
-      <form class="search-form js-searchForm">
-        <input type="text" class="input-country-js" placeholder="Введите страну" name="query" />
-      </form>
-      <div class="card-land js-cardLand"></div>
-    </div>
-
+    <form class="search-form" id="search-form">
+      <input
+        type="text"
+        class="input-picture-js"
+        name="query"
+        autocomplete="off"
+        placeholder="Search images..."
+      />
+    </form>
+    <button class="load-more-btn">Touch me!</button>
+    <ul class="gallery"></ul>
     <script src="./index.js"></script>
   </body>
 </html>
