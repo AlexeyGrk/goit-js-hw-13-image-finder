@@ -1,6 +1,7 @@
 import './sass/main.scss';
 import fetchPictureByWord from './apiService.js';
 import pictureLists from './templates/pictureLists.hbs';
+
 import './pnotify-cfg';
 import { error } from '@pnotify/core';
 import PictureApiService from './apiService.js';
@@ -20,19 +21,25 @@ refs.loadMoreBtn.addEventListener('click', OnLoadMore);
 
 function searchPictures(e) {
   e.preventDefault();
-  PirctureApiService.query = refs.findInput.value;
 
+  PirctureApiService.resetPage();
+  clearPicturesContiner();
+
+  PirctureApiService.query = refs.findInput.value;
+  if (PirctureApiService.query === '') {
+    return;
+  }
   PirctureApiService.fetchPictureByWord().then(renderPicturesGallery);
 }
 function renderPicturesGallery(pictures) {
   const markup = pictureLists(pictures);
   refs.gallery.insertAdjacentHTML('beforeend', markup);
 }
+function clearPicturesContiner() {
+  refs.gallery.innerHTML = '';
+}
 function OnLoadMore() {
   PirctureApiService.fetchPictureByWord().then(renderPicturesGallery);
-  window.scrollTo({
-    top: 1500,
-    left: 100,
-    behavior: 'smooth',
-  });
+  // window.scrollTo({ left: 0, top:  behavior: "smooth" });
+  gotoBottom('.load-more-btn');
 }

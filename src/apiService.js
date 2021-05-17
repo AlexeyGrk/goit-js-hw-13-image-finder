@@ -13,10 +13,16 @@ export default class PictureApiService {
 `);
       const data = await response.json();
       const dataList = await data.hits;
-      this.page += 1;
-      console.log(dataList);
+      this.incrementPage();
+
       return dataList;
     } catch {}
+  }
+  incrementPage() {
+    this.page += 1;
+  }
+  resetPage() {
+    this.page = 1;
   }
   get query() {
     return this.searchQuery;
