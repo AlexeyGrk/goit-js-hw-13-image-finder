@@ -20,7 +20,7 @@ function renderCountryCard(country) {
   const markup = cardTpm(country);
   refs.cardList.insertAdjacentHTML('beforeend', markup);
 }
-function onSearch(e) {
+async function onSearch(e) {
   e.preventDefault();
   clearMarkup();
 
