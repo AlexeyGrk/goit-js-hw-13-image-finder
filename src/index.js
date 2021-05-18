@@ -10,7 +10,6 @@ const refs = {
   searchForm: document.querySelector('.search-form'),
   findInput: document.querySelector('.input-picture-js'),
   findBtn: document.querySelector('.find-btn'),
-
   buttonUp: document.querySelector('.button-up'),
 };
 
