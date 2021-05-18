@@ -3,21 +3,27 @@ import pictureLists from './templates/pictureLists.hbs';
 import './pnotify-cfg';
 import { error } from '@pnotify/core';
 import PictureApiService from './apiService.js';
+import InfinityScrollFn from 'infinite-scroll';
 
 const refs = {
   gallery: document.querySelector('.gallery'),
   searchForm: document.querySelector('.search-form'),
   findInput: document.querySelector('.input-picture-js'),
   findBtn: document.querySelector('.find-btn'),
-  loadMoreBtn: document.querySelector('.load-more-btn'),
+
   buttonUp: document.querySelector('.button-up'),
 };
 
 const PirctureApiService = new PictureApiService();
 
 refs.findBtn.addEventListener('click', searchPictures);
-refs.loadMoreBtn.addEventListener('click', OnLoadMore);
+
 refs.buttonUp.addEventListener('click', buttonOnUp);
+window.addEventListener('scroll', () => {
+  if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight) {
+    OnLoadMore();
+  }
+});
 
 function searchPictures(e) {
   e.preventDefault();
@@ -33,7 +39,6 @@ function searchPictures(e) {
 
   refs.findInput.value = '';
   PirctureApiService.fetchPictureByWord().then(renderPicturesGallery).catch(findError);
-  showLoadMoreBtn();
 }
 function renderPicturesGallery(pictures) {
   const markup = pictureLists(pictures);
@@ -56,9 +61,7 @@ function buttonOnUp() {
     behavior: 'smooth',
   });
 }
-function showLoadMoreBtn() {
-  refs.loadMoreBtn.classList.remove('is-hidden');
-}
+
 function findError() {
   error({
     text: 'Too many matches found. Please enter a more specific query!',
