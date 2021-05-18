@@ -22,8 +22,6 @@ refs.buttonUp.addEventListener('click', buttonOnUp);
 function searchPictures(e) {
   e.preventDefault();
 
-  showLoadMoreBtn();
-
   PirctureApiService.resetPage();
   clearPicturesContiner();
 
@@ -35,9 +33,14 @@ function searchPictures(e) {
 
   refs.findInput.value = '';
   PirctureApiService.fetchPictureByWord().then(renderPicturesGallery).catch(findError);
+  showLoadMoreBtn();
 }
 function renderPicturesGallery(pictures) {
   const markup = pictureLists(pictures);
+  if (PirctureApiService.query === '') {
+    findError();
+    return;
+  }
   refs.gallery.insertAdjacentHTML('beforeend', markup);
 }
 function clearPicturesContiner() {
@@ -61,4 +64,3 @@ function findError() {
     text: 'Too many matches found. Please enter a more specific query!',
   });
 }
-function resetSearchQuery() {}
