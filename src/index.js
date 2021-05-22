@@ -45,6 +45,7 @@ function renderPicturesGallery(pictures) {
     findError();
     return;
   }
+
   refs.gallery.insertAdjacentHTML('beforeend', markup);
 }
 function clearPicturesContiner() {
